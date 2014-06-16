@@ -18,7 +18,7 @@ GQuery.named = {
     if((typeof year == 'string' && year[0]) || typeof year == 'number'){
       //          type   prod     gov     com     count   currency   name
       return "select C, sum(F), sum(Z), sum(Y), count(A),        AB,     B " +
-        "where D = '" + year.toString() + "' group by C, AB, B" + "&sheet=transactions";
+        "where D = '" + year.toString() + "' group by C, AB, B order by C desc" + "&sheet=transactions";
       // receiving callback or other cases
     } else {
       return "select C, sum(F), sum(Z), sum(Y), count(A),        AB,     B " +
@@ -36,7 +36,7 @@ GQuery.named = {
     //          auth   prod     gov     com  payment_type
     return "select sum(F), sum(G), sum(H),    E, L " +
       "where C = '" + type + "' and D = '" + year + "' " +
-      "group by E, L" + "&sheet=transactions_transposed";
+      "group by E, L order by sum(G) desc" + "&sheet=transactions_transposed";
   },
 
   // summary of companies production for a set of years and a given

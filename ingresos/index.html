@@ -43,15 +43,15 @@ title: 'Ingresos'
       </div>
       <div class='highlight-value-box' id='total-entities'>
         <div class='header-box'></div>
-        <div class='subheader-box'>Recibido por Entidades</div>
+        <div class='subheader-box'>Reportado por el Estado</div>
       </div>
       <div class='highlight-value-box' id='total-companies'>
         <div class='header-box'></div>
-        <div class='subheader-box'>Pagado por Empresas</div>
+        <div class='subheader-box'>Reportado por empresas</div>
       </div>
       <div class='highlight-value-box' id='difference'>
         <div class='header-box'></div>
-        <div class='subheader-box'>Differencia</div>
+        <div class='subheader-box'>Diferencia</div>
       </div>
     </div>
   </div>
@@ -62,22 +62,20 @@ title: 'Ingresos'
       <tr>
         <th class='sector'>Sector</th>
         <th class='produccion'>Ingresos (S/.)</th>
-        <th class='parte'>Parte %</th>
+        <th class='parte'>Parte (%)</th>
         <th class='empresas'>Empresas</th>
       </tr>
     </table>
   </div>
 </div>
 <div class='row spacetop'>
-  <div class='large-9 columns'>
+  <div class='large-12 columns'>
     {% include editables/ingresos/index/recaudacion.html %}
   </div>
 </div>
 <div class='row spacetop'>
-  <div class='large-8 columns'>
+  <div class='large-12 columns'>
     <div id="income-vs-year-bar-chart"> </div>
-  </div>
-  <div class='large-4 columns'>
   </div>
 </div>
 <div class='row'>
@@ -150,6 +148,7 @@ title: 'Ingresos'
     "drawTable": function () {
       var _this = this;
       var ps = _.map(Projects.projectsData,function(p){
+        p.anteil = p.anteil.round(2).format();
         p.betrag = p.betrag.round(2).format();
         return p;
       });
@@ -260,7 +259,7 @@ title: 'Ingresos'
         height: 340,
         colors:['#7AA136', '#008cba', '#7a93b6'],
         tooltip: {textStyle: {color: '#232323', fontSize: 16}, showColorCode: true},
-        chartArea: {top: 20, left:10, width: 400},
+        chartArea: {top: 20, left: 120, width: 600},
         lineWidth: 5,
         pointSize: 8,
         legend: { position: 'bottom' }

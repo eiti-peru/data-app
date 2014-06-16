@@ -6,7 +6,7 @@ title: 'Empresas'
 <div class='row'>
   <div class='large-3 columns'>
     <h2>
-      <span class='year'></span>
+      <span class='type'></span> - <span class='year'></span>
     </h2>
   </div>
   <div class='large-6 columns'>
@@ -121,8 +121,6 @@ title: 'Empresas'
 
       //_this.projectsData = jQuery.map(obj.rows, function(n) {return _this.dataToTable(n)});
 
-
-
       _.each(rows, function(r) { return _this.projectToTreemapJson(r, indexes, year); });
       _this.drawTreemap();
       //_this.total(year)
@@ -190,6 +188,7 @@ title: 'Empresas'
     var year = $.url().param("y") || lastYear();
     var type = $.url().param("b");
     $('span.year').text(year);
+    $('span.type').text(type);
     CssClass = '.y' + year;
     $(CssClass).addClass('active');
 
