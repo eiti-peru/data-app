@@ -89,7 +89,6 @@ title: 'Ingresos'
           .text(totals.companies);
       }
 
-
   }
 
   Projects = {
@@ -100,7 +99,20 @@ title: 'Ingresos'
     "init": function(crs, year, rows, totals) {
       var _this = this;
 
+      var payment_types = {
+        regalias_hidrocarburos: 'Regalías de hidrocarburos (recaudado por PERUPETRO)',
+        gravamen_mineria: 'Gravamen especial a la minería (recaudado por SUNAT/MEF)',
+        impuesto_mineria: 'Impuesto especial a la minería (recaudado por SUNAT/MEF)',
+        derechos_vigencia: 'Derechos',
+        impuesto_renta: 'Impuesto a la renta (recaudado por SUNAT)',
+        regalia_minera: 'Regalía minera (recaudado por SUNAT)'
+      }
+
       if(rows.length > 0){
+        console.log(rows[0]);
+        for(var i = 0; i < rows.length; i++) {
+          rows[i].c[3].v = payment_types[rows[i].c[3].v];
+        }
 
         _.each(rows, function(n) { return _this.dataToTable(n, totals.production.now, year) });
         _.each(rows, function(n) { return _this.projectToTreemapJson(n, year) });
@@ -118,7 +130,6 @@ title: 'Ingresos'
     },
     "drawTreemap": function () {
       var data = _.map(Projects.treeData, function(node){
-        console.log(data)
         node.data.value           = rates.sol + node.data.value.format();
         node.data.printable_value = rates.sol + node.data.printable_value.format();
         return node;
@@ -140,15 +151,15 @@ title: 'Ingresos'
     "drawTable": function () {
       var _this = this
       var ps = _.map(Projects.projectsData, function(p){
-        console.log(p)
-        p.anteil = p.anteil.round(2).format();
-        p.betrag = p.betrag.round(2).format();
         return p;
       });
 
       for(var i = 0; i < ps.length; i++){
         var project = ps[i];
-        if(parseInt(project.anteil) > 0){
+        if(Math.round(project.anteil * 100) > 0){
+          var p = project;
+          p.anteil = p.anteil.round(2).format();
+          p.betrag = p.betrag.round(2).format();
           var row = ich.ingresoSectorRow(project);
           $('#regionData').find('tbody').append(row);
         }
@@ -223,8 +234,6 @@ title: 'Ingresos'
 
         thisYear     = thisYear.table.rows;
         previousYear = previousYear.table.rows;
-
-        console.log(thisYear)
 
         var production = {
           now: Client.sumSoles(thisYear, gov, curr, year),
