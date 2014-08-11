@@ -9,7 +9,7 @@ GQuery.named = {
   // ingresos level 1
 
   sumByYears: function(years){
-    return "select C, D, sum(F) " + GQuery.namedHelpers.contain('D', years) +
+    return "select C, D, sum(Z) " + GQuery.namedHelpers.contain('D', years) +
       "group by C, D" + "&sheet=transactions";
   },
 
