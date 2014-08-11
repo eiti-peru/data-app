@@ -35,19 +35,5 @@ locales:
     - text: Glosario
       url: /glosario/index.html
 
-  en:
-    title_message: EITI Peru Transparency
-    slogan_message: Research and analyse extractives industries
-    navigation:
-    - text: Global Engagement
-      url: /en/index.html
-    - text: Sectors
-      url: /en/sektoren/index.html
-    - text: Results
-      url: /en/wirkungen/index.html
-    - text: Source of funds
-      url: /en/mittelherkunft/index.html
-    - text: About this website
-      url: /en/ueber/index.html
 prose:
   rooturl: _includes/editables
