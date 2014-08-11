@@ -1,7 +1,7 @@
 safe:        false
 port: 4000
-#url: http://crisscrossed.github.io/eiti
-url: http://localhost:4000
+url: http://eiti-peru.github.io/data-app
+#url: http://localhost:4000
 
 destination: ./_site
 plugins:     ./_plugins
