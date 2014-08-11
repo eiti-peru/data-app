@@ -4,12 +4,12 @@ text: 'Empresas'
 title: 'Empresas'
 ---
 <div class='row'>
-  <div class='large-3 columns'>
+  <div class='large-4 columns'>
     <h2>
       <span class='type'></span> - <span class='year'></span>
     </h2>
   </div>
-  <div class='large-6 columns'>
+  <div class='large-5 columns'>
     <ul class='years'>
       <li class='year-toggle'>
         <a class='y2012' href='?y=2012'>2012</a>
@@ -95,7 +95,7 @@ title: 'Empresas'
     init: function(totals) {
       var _this = this
       $('#complete1 .header-box')
-      .text(rates.sol + totals.companies.amount.round(2).format());
+      .text(rates.sol + totals.companies.amount.round(0).format());
       $('#complete2 .header-box ')
       .text(totals.companies.count);
       $('#complete3 .header-box')
@@ -128,8 +128,8 @@ title: 'Empresas'
     },
     "drawTreemap": function () {
       var data = _(Projects.treeData).map(function(node){
-        node.data.value           = rates.sol + node.data.value.round(2).format();
-        node.data.printable_value = rates.sol + node.data.printable_value.round(2).format();
+        node.data.value           = rates.sol + node.data.value.round(0).format();
+        node.data.printable_value = rates.sol + node.data.printable_value.round(0).format();
         return node;
       });
       OpenSpending.DatasetPage.init({

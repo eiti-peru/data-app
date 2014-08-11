@@ -10,7 +10,7 @@ GQuery.named = {
 
   sumByYears: function(years){
     return "select C, D, sum(F) " + GQuery.namedHelpers.contain('D', years) +
-      "group by C, D" + "&sheet=transactions_test";
+      "group by C, D" + "&sheet=transactions";
   },
 
   sumByType: function(year){

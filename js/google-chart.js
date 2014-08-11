@@ -109,9 +109,9 @@ GChart = {
     });
   },
 
-  // Format numbers: 1000 -> 1.000
+  // Format numbers: 1000 -> 1,000
   format: function(data, columns){
-    var formatter = new google.visualization.NumberFormat({groupingSymbol: '.', fractionDigits: 0});
+    var formatter = new google.visualization.NumberFormat({groupingSymbol: ',', fractionDigits: 0});
     for (var i = 0, l = columns.length; i < l; i ++) {
       var j = columns[i];
       formatter.format(data, j);

@@ -82,7 +82,7 @@ title: 'Ingresos'
       "init": function(type, totals){
         var _this = this;
         $('#total-income .header-box')
-          .text(rates.sol + totals.production.now.format());
+          .text(rates.sol + totals.production.now.round(0).format());
         $('#growth .header-box ')
           .text(totals.growth);
         $('#transactions-count .header-box')
@@ -130,8 +130,8 @@ title: 'Ingresos'
     },
     "drawTreemap": function () {
       var data = _.map(Projects.treeData, function(node){
-        node.data.value           = rates.sol + node.data.value.format();
-        node.data.printable_value = rates.sol + node.data.printable_value.format();
+        node.data.value           = rates.sol + node.data.value.round(0).format();
+        node.data.printable_value = rates.sol + node.data.printable_value.round(0).format();
         return node;
       });
       OpenSpending.DatasetPage.init({
@@ -158,8 +158,8 @@ title: 'Ingresos'
         var project = ps[i];
         if(Math.round(project.anteil * 100) > 0){
           var p = project;
-          p.anteil = p.anteil.round(2).format();
-          p.betrag = p.betrag.round(2).format();
+          p.anteil = p.anteil.round(0).format();
+          p.betrag = p.betrag.round(0).format();
           var row = ich.ingresoSectorRow(project);
           $('#regionData').find('tbody').append(row);
         }
@@ -265,10 +265,10 @@ title: 'Ingresos'
     $('.y2008').attr('href', 'index.html?y=2008&b=' + crs);
 
     // Temporal
-    GSpreadsheet.sheetByTitle('transactions', function(id){
+    GSpreadsheet.sheetByTitle('transactions_transposed', function(id){
       $('.json').attr('href', GSpreadsheet.sheetUrl(id) + "?alt=json");
     })
-    $('.csv' ).attr('href', GSpreadsheet.csvUrl('transactions'));
+    $('.csv' ).attr('href', GSpreadsheet.csvUrl('transactions_transposed'));
   });
 </script>
 {% include treemap.html %}

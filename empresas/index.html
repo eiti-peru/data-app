@@ -89,7 +89,7 @@ title: 'Empresas'
     init: function(totals) {
       var _this = this
       $('#complete1 .header-box')
-      .text(rates.sol + totals.companies.amount.round(2).format());
+      .text(rates.sol + totals.companies.amount.round(0).format());
       $('#complete2 .header-box ')
       .text(totals.companies.count);
       $('#complete3 .header-box')
@@ -119,8 +119,8 @@ title: 'Empresas'
     },
     "drawTreemap": function () {
       var data = _(Projects.treeData).map(function(node){
-        node.data.value           = rates.sol + node.data.value.round(2).format();
-        node.data.printable_value = rates.sol + node.data.printable_value.round(2).format();
+        node.data.value           = rates.sol + node.data.value.round(0).format();
+        node.data.printable_value = rates.sol + node.data.printable_value.round(0).format();
         return node;
       });
 

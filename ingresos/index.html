@@ -99,13 +99,13 @@ title: 'Ingresos'
         $('#companies-count .header-box ')
           .text(totals.companies.count);
         $('#total-entities .header-box ')
-          .text(rates.sol + totals.government.format());
+          .text(rates.sol + totals.government.round(0).format());
         $('#total-companies .header-box ')
-          .text(rates.sol + totals.companies.paid.format());
+          .text(rates.sol + totals.companies.paid.round(0).format());
         var percentage = (totals.diff * 100 / totals.companies.paid).round(2).
           toString() + "%";
         $('#difference .header-box')
-          .text(totals.diff.format() + " (" + percentage + ")");
+          .text(totals.diff.round(0).format() + " (" + percentage + ")");
       }
   }
 
@@ -127,8 +127,8 @@ title: 'Ingresos'
     },
     "drawTreemap": function () {
       var data = _.map(Projects.treeData, function(node){
-        node.data.value           = rates.sol + node.data.value.round(2).format();
-        node.data.printable_value = rates.sol + node.data.printable_value.round(2).format();
+        node.data.value           = rates.sol + node.data.value.round(0).format();
+        node.data.printable_value = rates.sol + node.data.printable_value.round(0).format();
         return node;
       });
       OpenSpending.DatasetPage.init({
@@ -148,8 +148,8 @@ title: 'Ingresos'
     "drawTable": function () {
       var _this = this;
       var ps = _.map(Projects.projectsData,function(p){
-        p.anteil = p.anteil.round(2).format();
-        p.betrag = p.betrag.round(2).format();
+        p.anteil = p.anteil.round(0).format();
+        p.betrag = p.betrag.round(0).format();
         return p;
       });
 
