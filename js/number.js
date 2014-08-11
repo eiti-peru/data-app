@@ -23,7 +23,7 @@ var extendCore = function(){
   // Defaults
   Number.prototype.separators = {
     float: ',',
-    integer: '.'
+    integer: ','
   };
 
   Number.prototype.format = function(){

@@ -103,11 +103,7 @@ title: 'Ingresos'
         regalias_hidrocarburos: 'Regalías de hidrocarburos (recaudado por PERUPETRO)',
         gravamen_mineria: 'Gravamen especial a la minería (recaudado por SUNAT/MEF)',
         impuesto_mineria: 'Impuesto especial a la minería (recaudado por SUNAT/MEF)',
-<<<<<<< HEAD
-        derechos_vigencia: 'Derechos',
-=======
         derechos_vigencia: 'Derechos de vigencia (recaudado por INGEMMET)',
->>>>>>> 6a9ef6187cc7f04bddbbcd7e912e542ac0f8ffb8
         impuesto_renta: 'Impuesto a la renta (recaudado por SUNAT)',
         regalia_minera: 'Regalía minera (recaudado por SUNAT)'
       }
@@ -134,13 +130,8 @@ title: 'Ingresos'
     },
     "drawTreemap": function () {
       var data = _.map(Projects.treeData, function(node){
-<<<<<<< HEAD
         node.data.value           = rates.sol + node.data.value.round(0).format();
         node.data.printable_value = rates.sol + node.data.printable_value.round(0).format();
-=======
-        node.data.value           = rates.sol + node.data.value.format();
-        node.data.printable_value = rates.sol + node.data.printable_value.format();
->>>>>>> 6a9ef6187cc7f04bddbbcd7e912e542ac0f8ffb8
         return node;
       });
       OpenSpending.DatasetPage.init({

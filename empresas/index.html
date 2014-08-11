@@ -183,7 +183,6 @@ title: 'Empresas'
     $(CssClass).attr('class', 'active');
 
     GQuery.transactions(function(response){
-      console.log(response)
       var byYear       = Client.groupBy(response, 'year');
       var thisYear     = byYear[year];
       var previousYear = byYear[year - 1];

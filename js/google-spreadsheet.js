@@ -90,7 +90,6 @@ var GQuery = {
           }
 
           callback(transactions);
-          console.log(total)
         });
       });
     }
