@@ -21,8 +21,8 @@ GQuery.named = {
         "where D = '" + year.toString() + "' group by C order by C desc" + "&sheet=transactions";
       // receiving callback or other cases
     } else {
-      return "select C, sum(F), sum(Z), sum(Y), count(A),        AB,     B " +
-        " group by C, AB, B" + "&sheet=transactions";
+      return "select C, sum(Z), sum(Y), count(B)       " +
+        " group by C" + "&sheet=transactions";
     }
   },
 

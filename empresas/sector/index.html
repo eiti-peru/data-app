@@ -106,16 +106,6 @@ title: 'Empresas'
   Projects = {
     "projectsData": [],
     "treeData": [],
-    "total": function(year) {
-      var _this = this
-      $.ajax({
-        dataType : "jsonp",
-        url : CartoDB.url("SELECT total" + year + " as year from kfw_data_agg"),
-        success: function(obj){
-          _this.gesamtData = obj.rows[0].year.replace(/,/g, '')
-        }
-     })
-    },
     "init": function(year, rows, indexes) {
       var _this = this;
 
@@ -228,13 +218,10 @@ title: 'Empresas'
       AggStats.init(totals);
     });
 
-
-    // Temporal
     GSpreadsheet.sheetByTitle('transactions', function(id){
       $('.json').attr('href', GSpreadsheet.sheetUrl(id) + "?alt=json");
     });
     $('.csv' ).attr('href', GSpreadsheet.csvUrl('transactions'));
-
 
     // Year links
     $('.y2012').attr('href', 'index.html?y=2012&b=' + type);

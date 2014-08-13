@@ -156,7 +156,9 @@ title: 'Ingresos'
       for(var i = 0; i < ps.length; i++){
         var project = ps[i];
         var row = ich.ingresoRow(project);
-        $('#regionData').find('tbody').append(row);
+        if(project.betrag != '0') {
+          $('#regionData').find('tbody').append(row);
+        }
       }
     },
     "dataToTable": function(row, total, year) {
@@ -221,7 +223,7 @@ title: 'Ingresos'
         government: Client.sumSoles(rows, gov, currency, year).round(2),
         companies: {
           paid: Client.sumSoles(rows, comp, currency, year).round(2),
-          count: // checkx loop count
+          count: 5 // checkx loop count
         },
         diff: Client.sumSoles(rows, diff, currency, year).round(2)
       };

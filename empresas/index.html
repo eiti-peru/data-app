@@ -59,18 +59,6 @@ title: 'Empresas'
   <div class='large-3 columns'>
   </div>
 </div>
-<!-- <div class='row spacetop'>
-  <div class='large-9 columns'>
-    <table id='regionData'>
-      <tr>
-        <th class='sector'>Sector</th>
-        <th class='produccion'>Payment (S/.)</th>
-        <th class='parte'>Parte %</th>
-        <th class='empresas'>Empresas</th>
-      </tr>
-    </table>
-  </div>
-</div> -->
 <div class='row'>
   <div class='large-12 columns right'>
     <ul class='years download'>
@@ -100,16 +88,6 @@ title: 'Empresas'
   Projects = {
     "projectsData": [],
     "treeData": [],
-    "total": function(year) {
-      var _this = this
-      $.ajax({
-        dataType : "jsonp",
-        url : CartoDB.url("SELECT total" + year + " as year from kfw_data_agg"),
-        success: function(obj){
-          _this.gesamtData = obj.rows[0].year.replace(/,/g, '')
-        }
-     })
-    },
     "init": function(year, rows, indexes) {
       var _this = this;
 
@@ -220,7 +198,6 @@ title: 'Empresas'
       AggStats.init(totals);
     });
 
-    // Temporal
     GSpreadsheet.sheetByTitle('transactions', function(id){
       $('.json').attr('href', GSpreadsheet.sheetUrl(id) + "?alt=json");
     });
