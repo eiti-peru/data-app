@@ -6,7 +6,7 @@ $(function (){
   ]
 
   var fillCss = function(condition, color, table){
-    table || (table = 'eiti_peru_1')
+    table || (table = 'eiti_peru')
     return "#" + table + " [ " + condition + "] {"+
       "polygon-fill: " + color + ";" +
       "polygon-opacity: 0.7;" +
@@ -21,8 +21,7 @@ $(function (){
     var cacheKey = 'cssFor' + column + new Date().toDateString();
     cacheKey = cacheKey.replace(/\s/g, '_');
 
-    var q = "SELECT the_geom,the_geom_webmercator, year, canon_minero_gobiernos_locales_del_departamento::integer as value, to_char(canon_minero_gobiernos_locales_del_departamento::integer,'999G999G999G990'), to_char(canon_minero_gobiernos_regionales::integer,'999G999G999G990') as canon_minero_regional FROM eiti_peru_1 where year = '" + column + "'";
-    console.log(q)
+    var q = "SELECT the_geom,the_geom_webmercator, year, canon_minero_gobiernos_locales_del_departamento::integer as value, to_char(canon_minero_gobiernos_locales_del_departamento::integer,'999G999G999G990'), to_char(canon_minero_gobiernos_regionales::integer,'999G999G999G990') as canon_minero_regional FROM eiti_peru where year = '" + column + "'";
     column = 'value'
     if(cache = JSON.parse(sessionStorage[cacheKey] || null))
       callback(cssFromRows(cache, column));
@@ -76,7 +75,7 @@ $(function (){
   };
 
   var visUrl = 'http://crisscrossed.cartodb.com/api/v2/viz/' +
-    '6c77945c-ec9f-11e3-8549-0e230854a1cb/viz.json';
+    '4410e364-2175-11e4-8aab-0edbca4b5057/viz.json';
   cartodb.createVis('map', visUrl, {
     tiles_loader: true,
     center_lat: -10,

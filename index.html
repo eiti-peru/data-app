@@ -13,20 +13,17 @@ title: 'Inicio'
 </div>
 <div class="row spacetop">
   <div class="large-12 columns">
-    {% include editables/start/cobertura-del-estudio.html %}
-  <div id="companies-vs-studies-bar-chart"> </div>
-  </div>
-</div>
-<div class="row spacetop">
-  <div class="large-12 columns">
     {% include editables/start/ingresos.html %}
   <div id="companies-government-diff"> </div>
 </div>
 </div>
-<div class='row spacetop'>
-  <div class='large-6 columns'>
+<div class='row'>
+  <div class='large-12 columns'>
     {% include editables/start/participacion.html %}
+    <div id="companies-vs-studies-bar-chart"> </div>
   </div>
+</div>
+<div class='row'>
   <div class='large-6 columns'>
     <div id="aggregation-pie-chart"> </div>
     <ul class='years download'>
@@ -59,7 +56,8 @@ $(document).ready(function() {
 
     var options = {
       legend: { position: 'right' },
-      chartArea: {top: 20, width: 600}
+      chartArea: {top: 20, width: 600},
+      height: 400
     };
     GDataTable.map(dataTable, function(row){
       var _year = row[year];

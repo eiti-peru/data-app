@@ -116,7 +116,7 @@ title: 'Ingresos'
       var _this = this;
 
       if(rows.length > 0){
-        _.each(rows, function(n){ _this.dataToTable(n, totals.production, year, rows)});
+        _.each(rows, function(n){ _this.dataToTable(n, totals.government, year, rows)});
         _.each(rows, function(n){ _this.projectToTreemapJson(n, year); });
         _this.drawTreemap();
         _this.drawTable();
@@ -161,54 +161,39 @@ title: 'Ingresos'
     },
     "dataToTable": function(row, total, year) {
       var type          = row.c[0].v;
-      var solProduction = row.c[1].v.toSol(year);
-      var companyName   = row.c[6].v;
+      var government   = row.c[1].v;
+      var count         = row.c[3].v;
       var _row = _.find(Projects.projectsData,
           function(_row){return _row.crs == type;});
 
-      if(_row){
-        _row.anteil   += (solProduction * 100 / total).round(2);
-        _row.betrag   += solProduction;
-
-        var companyNames = _.flatten(
-          _.map(Projects.projectsData,function(p){ return p.companyNames;})
-        );
-        var matchName    = function(name){ return name == companyName; }
-        var newCompany   = !_.find(companyNames, matchName);
-        if(newCompany){
-          _row.projekte += 1;
-          _row.companyNames.push(companyName);
-        }
-      } else Projects.projectsData.push({
-        anteil:   (solProduction * 100 / total).round(2),
-        betrag:   solProduction,
-        bmz_nr:   type, // for link
+      Projects.projectsData.push({
+        anteil:   (government * 100 / total).round(2),
+        betrag:   government,
+        bmz_nr:   type,
         crs:      type,
         crs_en:   type,
-        jahr:     year,       // for link
-        // summe:    row.c[5].v,
-        projekte: 1,
-        companyNames: [companyName]
+        jahr:     year,
+        projekte: count
       });
     },
     "projectToTreemapJson": function(row, year) {
       var type          = row.c[0].v;
-      var solProduction = row.c[1].v.toSol(year);
+      var government = row.c[1].v;
       var node = _.find(Projects.treeData,
           function(node){return node.id == type;});
 
       if(node){
-        node.data['$area']        += solProduction;
-        node.data.value           += solProduction;
-        node.data.printable_value += solProduction;
+        node.data['$area']        += government;
+        node.data.value           += government;
+        node.data.printable_value += government;
       }
       else Projects.treeData.push({
         "data": {
           "title": type,
-          "$area": solProduction,
+          "$area": government,
           "$color": "#42abd8",
-          "value": solProduction,
-          "printable_value": solProduction,
+          "value": government,
+          "printable_value": government,
           "link": "sector/index.html?y=" + year + "&b=" + type,
           "show_title": true
         },
@@ -226,19 +211,17 @@ title: 'Ingresos'
 
     GQuery.sumByType(year, function(response){
       var rows = response.table.rows;
-      var productionUsd = 1, gov = 2, comp = 3, currency = 5, companyName = 6,
+      var gov = 1, comp = 2, count = 3, currency = 4
       diff = rows[0].c.length;
       GQuery.addColumn(rows, function(row){
         return row.c[gov].v - row.c[comp].v;
       });
 
       var totals = {
-        production: GQuery.sum(rows, productionUsd).toSol(year).round(2),
         government: Client.sumSoles(rows, gov, currency, year).round(2),
         companies: {
           paid: Client.sumSoles(rows, comp, currency, year).round(2),
-          count: _.keys( _.groupBy(rows,function(row){return row.c[companyName].v;})).
-            length
+          count: // checkx loop count
         },
         diff: Client.sumSoles(rows, diff, currency, year).round(2)
       };
