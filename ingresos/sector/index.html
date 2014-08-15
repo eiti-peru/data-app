@@ -247,7 +247,6 @@ title: 'Ingresos'
 
         var totals = {
           production: production,
-          // TODO count companies
           companies: _(_(thisYear).groupBy(function(row){ return row.c[type].v;})).
             keys().length,
           growth: growth
@@ -264,7 +263,6 @@ title: 'Ingresos'
     $('.y2009').attr('href', 'index.html?y=2009&b=' + crs);
     $('.y2008').attr('href', 'index.html?y=2008&b=' + crs);
 
-    // Temporal
     GSpreadsheet.sheetByTitle('transactions_transposed', function(id){
       $('.json').attr('href', GSpreadsheet.sheetUrl(id) + "?alt=json");
     })

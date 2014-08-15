@@ -59,6 +59,17 @@ title: 'Empresas'
   <div class='large-3 columns'>
   </div>
 </div>
+<!-- <div class='row spacetop'>
+  <div class='large-9 columns'>
+    <table id='empresas'>
+      <tr>
+        <th class='sector'>Sector</th>
+        <th class='produccion'>Ingresos (S/.)</th>
+        <th class='parte'>Parte (%)</th>
+      </tr>
+    </table>
+  </div>
+</div> -->
 <div class='row'>
   <div class='large-12 columns right'>
     <ul class='years download'>
@@ -88,11 +99,17 @@ title: 'Empresas'
   Projects = {
     "projectsData": [],
     "treeData": [],
-    "init": function(year, rows, indexes) {
+    "init": function(year, rows, indexes, totals) {
       var _this = this;
+
+      this.projectsData = _.map(rows, function(n) {return _this.dataToTable(n, indexes, totals)});
+      this.projectsData = _.sortBy(this.projectsData, function (row) {
+        return -row.betrag;
+      })
 
       _.each(rows, function(r) { return _this.projectToTreemapJson(year, r, indexes); });
       _this.drawTreemap();
+      _this.drawTable();
 
     },
     "drawTreemap": function () {
@@ -120,6 +137,35 @@ title: 'Empresas'
     "dataToTable": function(row) {
         row.betrag = row.betrag.replace(/,/g, '.')
         return row
+    },
+    "drawTable": function () {
+      var _this = this;
+
+      var ps = _.map(Projects.projectsData,function(p){
+        p.anteil = p.anteil.round(0).format();
+        p.betrag = p.betrag.round(0).format();
+        return p;
+      });
+
+      for(var i = 0; i < ps.length; i++){
+        var project = ps[i];
+        var row = ich.empresaRow(project);
+        if(project.betrag != '0') {
+          $('#empresas').find('tbody').append(row);
+        }
+      }
+    },
+    "dataToTable": function(row, indexes, totals) {
+      var companyPaid   = row.c[indexes.companyAmount].v;
+      var companyName   = row.c[indexes.companyName].v;
+      var total = totals.companies.amount;
+      return {
+        anteil:   (companyPaid * 100 / total).round(2),
+        betrag:   companyPaid,
+        bmz_nr:   companyName,
+        crs:      companyName,
+        crs_en:   companyName
+      };
     },
     "projectToTreemapJson": function(year, row, indexes) {
       var type                 = row.c[indexes.type].v;
@@ -194,7 +240,8 @@ title: 'Empresas'
         growth: growth
       };
 
-      Projects.init(year, thisYear, indexes);
+      Projects.init(year, thisYear, indexes, totals);
+
       AggStats.init(totals);
     });
 

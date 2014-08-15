@@ -9,7 +9,7 @@ GQuery.named = {
   // ingresos level 1
 
   sumByYears: function(years){
-    return "select C, D, sum(F) " + GQuery.namedHelpers.contain('D', years) +
+    return "select C, D, sum(G) " + GQuery.namedHelpers.contain('D', years) +
       "group by C, D" + "&sheet=transactions_transposed";
   },
 
@@ -17,33 +17,25 @@ GQuery.named = {
     // receiving not empty string or number
     if((typeof year == 'string' && year[0]) || typeof year == 'number'){
       //          type   prod     gov     com     count   currency   name
-      return "select C, sum(F), sum(G), count(B)" +
+      return "select C, sum(G), sum(H), count(B)" +
         "where D = '" + year.toString() + "' group by C order by C desc" + "&sheet=transactions_transposed";
       // receiving callback or other cases
     } else {
-      return "select C, sum(F), sum(G), count(B)       " +
+      return "select C, sum(G), sum(H), count(B)       " +
         " group by C" + "&sheet=transactions_transposed";
     }
   },
 
   //                             year  prod                type
-  productionByYearBySector: "select D, sum(F) group by D pivot C" +
+  productionByYearBySector: "select D, sum(G) group by D pivot C" +
     "&sheet=transactions_transposed",
 
   // ingresos level 2
   // authorities for a given type and year
   authorities: function(type, year){
-    //          auth   prod     gov     com  payment_type
-    return "select sum(F), sum(G), sum(H),    E, L " +
+    return "select sum(G), sum(H), sum(I),    F, M " +
       "where C = '" + type + "' and D = '" + year + "' " +
-      "group by E, L order by sum(G) desc" + "&sheet=transactions_transposed";
-  },
-
-  // summary of companies production for a set of years and a given
-  // type
-  companies1: function(years, type){
-    return "select D, sum(E), sum(P) " + GQuery.namedHelpers.contain('D', years) +
-      "and C = '" + type + "' group by D" + "&sheet=transactions_transposed";
+      "group by F, M order by sum(G) desc" + "&sheet=transactions_transposed";
   },
 
   // Front Page
@@ -53,8 +45,8 @@ GQuery.named = {
   third:  "select J, count(A) where J = 'yes' group by J pivot C" + "&sheet=empresas",
 
   //            year  currency   auth    comp
-  colDiff: "select D, L, sum(F), sum(G) where L !='' group by D, L " +
-    "label sum(F) 'Según Gobierno', sum(G) 'Según Empresas'" +
+  colDiff: "select D, M, sum(G), sum(H) where M !='' group by D, M " +
+    "label sum(G) 'Según Gobierno', sum(H) 'Según Empresas'" +
     "&sheet=transactions_transposed",
 
   //              name  type  aggr
