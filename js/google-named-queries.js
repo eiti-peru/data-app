@@ -9,20 +9,20 @@ GQuery.named = {
   // ingresos level 1
 
   sumByYears: function(years){
-    return "select C, D, sum(Z) " + GQuery.namedHelpers.contain('D', years) +
-      "group by C, D" + "&sheet=transactions";
+    return "select C, D, sum(F) " + GQuery.namedHelpers.contain('D', years) +
+      "group by C, D" + "&sheet=transactions_transposed";
   },
 
   sumByType: function(year){
     // receiving not empty string or number
     if((typeof year == 'string' && year[0]) || typeof year == 'number'){
       //          type   prod     gov     com     count   currency   name
-      return "select C, sum(Z), sum(Y), count(B)" +
-        "where D = '" + year.toString() + "' group by C order by C desc" + "&sheet=transactions";
+      return "select C, sum(F), sum(G), count(B)" +
+        "where D = '" + year.toString() + "' group by C order by C desc" + "&sheet=transactions_transposed";
       // receiving callback or other cases
     } else {
-      return "select C, sum(Z), sum(Y), count(B)       " +
-        " group by C" + "&sheet=transactions";
+      return "select C, sum(F), sum(G), count(B)       " +
+        " group by C" + "&sheet=transactions_transposed";
     }
   },
 
@@ -43,38 +43,22 @@ GQuery.named = {
   // type
   companies1: function(years, type){
     return "select D, sum(E), sum(P) " + GQuery.namedHelpers.contain('D', years) +
-      "and C = '" + type + "' group by D" + "&sheet=transactions";
-  },
-
-  // empresas level 1
-
-  // Reported by companies grouped by sector
-  transactions1: function(year){
-    if(!year)
-      return "select B, sum(F), sum(Z), sum(Y), sum(AA), count(A) group by B" +
-      "&sheet=transactions";
-    //          name   prod     gov     com    diff       txs
-    return "select B, sum(F), sum(Z), sum(Y), sum(AA), count(A) " +
-      "where D = '" + year + "' group by B" + "&sheet=transactions";
+      "and C = '" + type + "' group by D" + "&sheet=transactions_transposed";
   },
 
   // Front Page
-
   //         std no    comps                               types
   first:  "select H, count(A) where H = 'yes' group by H pivot C" + "&sheet=empresas",
   second: "select I, count(A) where I = 'yes' group by I pivot C" + "&sheet=empresas",
   third:  "select J, count(A) where J = 'yes' group by J pivot C" + "&sheet=empresas",
 
   //            year  currency   auth    comp
-  colDiff: "select D, AB, sum(Y), sum(Z) where AB !='' group by D, AB " +
-    "label sum(Y) 'Según Gobierno', sum(Z) 'Según Empresas'" +
-    "&sheet=transactions",
+  colDiff: "select D, L, sum(F), sum(G) where L !='' group by D, L " +
+    "label sum(F) 'Según Gobierno', sum(G) 'Según Empresas'" +
+    "&sheet=transactions_transposed",
 
   //              name  type  aggr
   companies: "select B, C, D" + "&sheet=empresas",
-
-  //                 year   comp    auth         year
-  authoritySum: "select D, sum(H), sum(I) group by D" + "&sheet=transactions",
 
   // Pie chart
   companiesByAggregation:

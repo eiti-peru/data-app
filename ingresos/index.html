@@ -58,7 +58,7 @@ title: 'Ingresos'
 </div>
 <div class='row spacetop'>
   <div class='large-9 columns'>
-    <table id='regionData'>
+    <table id='ingresos'>
       <tr>
         <th class='sector'>Sector</th>
         <th class='produccion'>Ingresos (S/.)</th>
@@ -157,7 +157,7 @@ title: 'Ingresos'
         var project = ps[i];
         var row = ich.ingresoRow(project);
         if(project.betrag != '0') {
-          $('#regionData').find('tbody').append(row);
+          $('#ingresos').find('tbody').append(row);
         }
       }
     },
@@ -223,7 +223,9 @@ title: 'Ingresos'
         government: Client.sumSoles(rows, gov, currency, year).round(2),
         companies: {
           paid: Client.sumSoles(rows, comp, currency, year).round(2),
-          count: 5 // checkx loop count
+          count: _.reduce(rows, function (memo, row) {
+            return memo + row.c[count].v;
+          }, 0)
         },
         diff: Client.sumSoles(rows, diff, currency, year).round(2)
       };
