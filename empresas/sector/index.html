@@ -221,11 +221,12 @@ title: 'Empresas'
       var byYear       = Client.groupBy(response, 'year');
 
       var indexes = {
-        usdProduction: Client.index(response, 'production'),
+        companyPaid: Client.index(response, 'company_paid'),
         companyName:   Client.index(response, 'company_name'),
         companyAmount: Client.index(response, 'company_total'),
         type:          Client.index(response, 'type'),
-        currency:      Client.index(response, 'currency')
+        currency:      Client.index(response, 'currency'),
+        companies:     Client.index(response, 'companies')
       };
 
       var years = _.keys(byYear);
@@ -239,15 +240,15 @@ title: 'Empresas'
       var previousYear = byYear[year - 1];
 
       var production = {
-        now:      GQuery.sum(thisYear, indexes.usdProduction),
-        previous: !previousYear ? 0 : GQuery.sum(previousYear, indexes.usdProduction),
+        now:      GQuery.sum(thisYear, indexes.companyPaid).toSol(year),
+        previous: !previousYear ? 0 : GQuery.
+         sum(previousYear, indexes.companyPaid).toSol(year),
       };
 
       var growth = ((production.now - production.previous) *
       100 / production.previous).round(2);
       var companies = {
-        count: _(_(thisYear).groupBy(function(row){
-          return row.c[indexes.companyName].v;})).keys().length,
+        count: GQuery.sum(thisYear, indexes.companies),
         amount: Client.sumSoles(thisYear, indexes.companyAmount, indexes.currency, year)
       };
 

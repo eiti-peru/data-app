@@ -59,7 +59,7 @@ title: 'Empresas'
   <div class='large-3 columns'>
   </div>
 </div>
-<!-- <div class='row spacetop'>
+<div class='row spacetop'>
   <div class='large-9 columns'>
     <table id='empresas'>
       <tr>
@@ -69,7 +69,7 @@ title: 'Empresas'
       </tr>
     </table>
   </div>
-</div> -->
+</div>
 <div class='row'>
   <div class='large-12 columns right'>
     <ul class='years download'>
@@ -212,28 +212,29 @@ title: 'Empresas'
       var previousYear = byYear[year - 1];
 
       var indexes = {
-        usdProduction: Client.index(response, 'production'),
+        companyPaid: Client.index(response, 'company_paid'),
         companyName:   Client.index(response, 'company_name'),
         companyAmount: Client.index(response, 'company_total'),
         type:          Client.index(response, 'type'),
-        currency:      Client.index(response, 'currency')
+        currency:      Client.index(response, 'currency'),
+        companies:     Client.index(response, 'companies')
       };
 
       var production = {
-        now:      GQuery.sum(thisYear, indexes.usdProduction).toSol(year),
+        now:      GQuery.sum(thisYear, indexes.companyPaid).toSol(year),
         previous: !previousYear ? 0 : GQuery.
-          sum(previousYear, indexes.usdProduction).toSol(year),
+          sum(previousYear, indexes.companyPaid).toSol(year),
       };
 
       var growth = ((production.now - production.previous) *
       100 / production.previous).round(2);
 
       var companies = {
-        count: _(_(thisYear).groupBy(function(row){
-          return row.c[indexes.companyName].v})).keys().length,
+        count: GQuery.sum(thisYear, indexes.companies),
         amount: Client.sumSoles(thisYear, indexes.companyAmount, indexes.currency, year)
       };
 
+      console.log("after companies");
       var totals   = {
         production: production,
         companies:  companies,

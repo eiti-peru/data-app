@@ -4,7 +4,7 @@
 GQuery.named = {
 
   // Generic transactions to be processed by client
-  transactions: "select A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,X,Y,Z,AA,AB" + "&sheet=transactions",
+  transactions: "select A,B,C,D,E,F,G,H,I,J,K,L,M" + "&sheet=transactions_transposed",
 
   // ingresos level 1
 
