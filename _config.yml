@@ -1,7 +1,7 @@
 safe:        false
 port: 4000
-url: http://eiti-peru.github.io/data-app
-#url: http://localhost:4000
+#url: http://eiti-peru.github.io/data-app
+url: http://localhost:4000
 
 destination: ./_site
 plugins:     ./_plugins
@@ -31,7 +31,7 @@ locales:
     - text: Distribucion
       url: /distribucion/index.html
     - text: "Enlaces de Interés"
-      url: /Enlaces/index.html
+      url: /enlaces/index.html
     - text: Glosario
       url: /glosario/index.html
 

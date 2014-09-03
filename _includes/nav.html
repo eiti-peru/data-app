@@ -1,6 +1,5 @@
 {% capture locale %}{{ page.url | truncate: 3, "" | remove: "/" }}{% endcapture %}
-{% if locale != "en" %}{% assign locale = "es" %}{% endif %}
-
+{% assign locale = "es" %}
 <ul class="button-group">
     {% for link in site.locales[locale].navigation %}
       {% assign current = nil %}
