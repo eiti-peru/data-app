@@ -22,13 +22,13 @@ $(function (){
     cacheKey = cacheKey.replace(/\s/g, '_');
 
     var q = "SELECT cartodb_id, the_geom,the_geom_webmercator, departamento, year, canon_minero_gobiernos_locales_del_departamento::integer as canon_minero_locales, to_char(canon_minero_gobiernos_regionales::integer,'999G999G999G990') as canon_minero_regional, to_char(canon_gasifero_universidades_nacionales::integer,'999G999G999G990') as canon_minero_uni, to_char(canon_gasifero_gobiernos_regionales::integer,'999G999G999G990') as canon_gasifero_regional, to_char(canon_gasifero_gobiernos_locales_del_departamento::integer,'999G999G999G990') as canon_gasiferas_locales, to_char(canon_y_sobrecanon_petrolero_universidades_nacionales::integer,'999G999G999G990') as canon_petrolero_uni, to_char(canon_y_sobrecanon_petrolero_institutos::integer,'999G999G999G990') as canon_petrolero_inst, to_char(canon_y_sobrecanon_petrolero_gobiernos_locales_del_departamento::integer,'999G999G999G990') as canon_petrolero_departamento, to_char(canon_y_sobrecanon_petrolero_gobiernos_regionales::integer,'999G999G999G990') as canon_petrolero_regional, to_char(regalias_mineras_universidades_naccionales::integer,'999G999G999G990') as canon_mineras_uni, to_char(regalias_mineras_gobiernos_regionales::integer,'999G999G999G990') as canon_mineras_regional, to_char(regalias_mineras_gobiernos_locales_del_departamenteo::integer,'999G999G999G990') as canon_mineras_locales, to_char(derechos_de_vigencia::integer,'999G999G999G990') as derechos, derechos_de_vigencia::integer as total FROM eiti_peru where year = '" + column + "'";
-    column = 'total'
+    value = 'total'
     if(cache = JSON.parse(sessionStorage[cacheKey] || null))
-      callback(cssFromRows(cache, column));
+      callback(cssFromRows(cache, value));
     else{
       $.get('http://' + account + '.cartodb.com/api/v2/sql?q=' + q ).done(function(response){
         sessionStorage[cacheKey] = JSON.stringify(response.rows);
-        callback(cssFromRows(response.rows, column));
+        callback(cssFromRows(response.rows, value));
       });
     }
   };
@@ -56,6 +56,8 @@ $(function (){
     $options.click(function(e) {
       var $li = $(e.target);
 
+
+
       // deselect all and select the clicked one
       $options.removeClass('selected');
       $li.addClass('selected');
@@ -71,8 +73,13 @@ $(function (){
       });
   };
 
+  var visByYear = {
+    '2008': 'http://...'
+  }
+
   var visUrl = 'http://crisscrossed.cartodb.com/api/v2/viz/' +
     '4410e364-2175-11e4-8aab-0edbca4b5057/viz.json';
+  //var visUrl = visByYear['2012'];
   cartodb.createVis('map', visUrl, {
     tiles_loader: true,
     center_lat: -10,
