@@ -73,25 +73,49 @@ $(function (){
       });
   };
 
-  var visByYear = {
-    '2008': 'http://...'
-  }
+  map = new L.Map('map').setView(new L.LatLng(-10, -75),6);
+    var mapboxUrl = 'http://{s}.tiles.mapbox.com/v3/okf.map-najwtvl1/{z}/{x}/{y}.png',
+    mapbox = new L.TileLayer(mapboxUrl, {"attribution": "\u00a9 <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a> contributors"});
+    map.addLayer(mapbox,true);
+    
+    map.scrollWheelZoom.disable();
+    var visUrl = 'http://crisscrossed.cartodb.com/api/v2/viz/' +
+      '4410e364-2175-11e4-8aab-0edbca4b5057/viz.json';
+  
 
-  var visUrl = 'http://crisscrossed.cartodb.com/api/v2/viz/' +
-    '4410e364-2175-11e4-8aab-0edbca4b5057/viz.json';
-  //var visUrl = visByYear['2012'];
-  cartodb.createVis('map', visUrl, {
-    tiles_loader: true,
-    center_lat: -10,
-    center_lon: -75,
-    zoom: 5
+  // create a layer with 1 sublayer
+  cartodb.createLayer(map, {
+    user_name: 'crisscrossed',
+    type: 'cartodb',
+    sublayers: [{
+      sql: "SELECT cartodb_id, the_geom,the_geom_webmercator, departamento, year, canon_minero_gobiernos_locales_del_departamento::integer as canon_minero_locales, to_char(canon_minero_gobiernos_regionales::integer,'999G999G999G990') as canon_minero_regional, to_char(canon_gasifero_universidades_nacionales::integer,'999G999G999G990') as canon_minero_uni, to_char(canon_gasifero_gobiernos_regionales::integer,'999G999G999G990') as canon_gasifero_regional, to_char(canon_gasifero_gobiernos_locales_del_departamento::integer,'999G999G999G990') as canon_gasiferas_locales, to_char(canon_y_sobrecanon_petrolero_universidades_nacionales::integer,'999G999G999G990') as canon_petrolero_uni, to_char(canon_y_sobrecanon_petrolero_institutos::integer,'999G999G999G990') as canon_petrolero_inst, to_char(canon_y_sobrecanon_petrolero_gobiernos_locales_del_departamento::integer,'999G999G999G990') as canon_petrolero_departamento, to_char(canon_y_sobrecanon_petrolero_gobiernos_regionales::integer,'999G999G999G990') as canon_petrolero_regional, to_char(regalias_mineras_universidades_naccionales::integer,'999G999G999G990') as canon_mineras_uni, to_char(regalias_mineras_gobiernos_regionales::integer,'999G999G999G990') as canon_mineras_regional, to_char(regalias_mineras_gobiernos_locales_del_departamenteo::integer,'999G999G999G990') as canon_mineras_locales, to_char(derechos_de_vigencia::integer,'999G999G999G990') as derechos, derechos_de_vigencia::integer as total FROM eiti_peru"
+      // cartocss: setCss($('li.selected'))
+    }]
   })
-  .done(function(vis, layers) {
-    // layer 0 is the base layer, layer 1 is cartodb layer
-    var subLayer = layers[1].getSubLayer(0);
+  .addTo(map)
+  .done(function(layer) {
+    console.log(layer)
+    var subLayer = layer.getSubLayer(0);
+    subLayer.setInteraction(true);
     yearHandler(subLayer);
     setCss($('li.selected'), subLayer);
+
+    // layer.createSubLayer({
+    //   sql: "SELECT * FROM eiti_peru limit 200",
+    //   cartocss: '#table_name {polygon-fill: #F0F0F0;}'
+    // });
+
+    // change the query for the first layer
+    // layer.getSubLayer(0).setSQL("SELECT * FROM table_name limit 10");
   })
+
+
+  // .done(function(vis, layers) {
+  //   // layer 0 is the base layer, layer 1 is cartodb layer
+  //   var subLayer = layers[1].getSubLayer(0);
+  //   yearHandler(subLayer);
+  //   setCss($('li.selected'), subLayer);
+  // })
   .error(function(err) {
     console.log(err);
   });
