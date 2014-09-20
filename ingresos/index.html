@@ -4,7 +4,7 @@ text: 'Ingresos'
 title: 'Ingresos'
 ---
 <div class='row spacebottom spacetop'>
-  <div class='large-9 columns'>
+  <div class='large-12 columns'>
   {% include editables/ingresos/index/ingresos.html %}
   </div>
 </div>
@@ -39,11 +39,11 @@ title: 'Ingresos'
     <div class='highlight-box'>
       <div class='highlight-value-box' id='companies-count'>
         <div class='header-box'></div>
-        <div class='subheader-box'>Número de Empresas</div>
+        <div class='subheader-box'>Empresas</div>
       </div>
       <div class='highlight-value-box' id='total-entities'>
         <div class='header-box'></div>
-        <div class='subheader-box'>Reportado por el Estado</div>
+        <div class='subheader-box'>Reportado por el estado</div>
       </div>
       <div class='highlight-value-box' id='total-companies'>
         <div class='header-box'></div>
@@ -51,7 +51,7 @@ title: 'Ingresos'
       </div>
       <div class='highlight-value-box' id='difference'>
         <div class='header-box'></div>
-        <div class='subheader-box'>Diferencia</div>
+        <div class='subheader-box'>Diferencia año anterior</div>
       </div>
     </div>
   </div>
@@ -249,7 +249,8 @@ title: 'Ingresos'
         chartArea: {top: 20, left: 120, width: 600},
         lineWidth: 5,
         pointSize: 8,
-        legend: { position: 'bottom' }
+        legend: { position: 'bottom' },
+        vAxis: {format: '###,###,###,###'}
       };
 
       // Currency conversion
@@ -274,10 +275,10 @@ title: 'Ingresos'
     });
 
     // Temporal
-    GSpreadsheet.sheetByTitle('transactions', function(id){
+    GSpreadsheet.sheetByTitle('transactions_transposed', function(id){
       $('.json').attr('href', GSpreadsheet.sheetUrl(id) + "?alt=json");
     });
-    $('.csv' ).attr('href', GSpreadsheet.csvUrl('transactions'));
+    $('.csv' ).attr('href', GSpreadsheet.csvUrl('transactions_transposed'));
   });
 
 </script>

@@ -100,9 +100,9 @@ title: 'Empresas'
   AggStats = {
     init: function(totals) {
       var _this = this
-      $('#complete1 .header-box')
+      $('#complete2 .header-box')
       .text(rates.sol + totals.companies.amount.round(0).format());
-      $('#complete2 .header-box ')
+      $('#complete1 .header-box ')
       .text(totals.companies.count);
       $('#complete3 .header-box')
       .text(totals.growth != Infinity ? totals.growth + "%" : "Informacion no disponible.");
@@ -262,10 +262,10 @@ title: 'Empresas'
       AggStats.init(totals);
     });
 
-    GSpreadsheet.sheetByTitle('transactions', function(id){
+    GSpreadsheet.sheetByTitle('transactions_transposed', function(id){
       $('.json').attr('href', GSpreadsheet.sheetUrl(id) + "?alt=json");
     });
-    $('.csv' ).attr('href', GSpreadsheet.csvUrl('transactions'));
+    $('.csv' ).attr('href', GSpreadsheet.csvUrl('transactions_transposed'));
 
     // Year links
     $('.y2012').attr('href', 'index.html?y=2012&b=' + type);

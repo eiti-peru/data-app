@@ -25,7 +25,7 @@ title: 'Inicio'
 </div>
 <div class='row'>
   <div class='large-6 large-offset-6 columns'>
-    <!-- <div id="aggregation-pie-chart"> </div> -->
+     <div id="aggregation-pie-chart"> </div>
     <ul class='years download'>
       <li class='year-toggle'>
         <a class='json-empresas' href='' target='_blank'>JSON</a>
@@ -57,7 +57,8 @@ $(document).ready(function() {
     var options = {
       legend: { position: 'right' },
       chartArea: {top: 20, width: 600},
-      height: 400
+      height: 280,
+      vAxis: {format: google.visualization.NumberFormat({groupingSymbol: ',', fractionDigits: 0})}
     };
     GDataTable.map(dataTable, function(row){
       var _year = row[year];
@@ -73,7 +74,6 @@ $(document).ready(function() {
       return {'column': column, 'aggregation': _sum, 'type': 'number'};
     };
 
-    // Remove currency column and group by currency
     dataTable = google.visualization.data.group(dataTable, [year],
       [sum(gov), sum(comp)]
     );
@@ -94,7 +94,6 @@ $(document).ready(function() {
     GChart.charts.pie(id, aggregations, width, height);
   });
 
-  // URLs for pie chart links
   GSpreadsheet.sheetByTitle('empresas', function(id){
     $('.json-empresas').attr('href', GSpreadsheet.sheetUrl(id) + "?alt=json");
   });
