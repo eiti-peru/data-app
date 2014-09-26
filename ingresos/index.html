@@ -224,7 +224,7 @@ title: 'Ingresos'
         companies: {
           paid: Client.sumSoles(rows, comp, currency, year).round(2),
           count: _.reduce(rows, function (memo, row) {
-            return memo + row.c[count].v;
+            return row.c[count].v;
           }, 0)
         },
         diff: Client.sumSoles(rows, diff, currency, year).round(2)

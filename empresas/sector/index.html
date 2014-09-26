@@ -217,7 +217,7 @@ title: 'Empresas'
     CssClass = '.y' + year;
     $(CssClass).addClass('active');
 
-    GQuery.transactions(function(response){
+    GQuery.transactions(year, function(response){
       var byYear       = Client.groupBy(response, 'year');
 
       var indexes = {
@@ -240,7 +240,7 @@ title: 'Empresas'
       var previousYear = byYear[year - 1];
 
       var production = {
-        now:      GQuery.sum(thisYear, indexes.companyPaid).toSol(year),
+        now:      GQuery.sum_empresa(thisYear, indexes.companyPaid).toSol(year),
         previous: !previousYear ? 0 : GQuery.
          sum(previousYear, indexes.companyPaid).toSol(year),
       };
@@ -248,7 +248,7 @@ title: 'Empresas'
       var growth = ((production.now - production.previous) *
       100 / production.previous).round(2);
       var companies = {
-        count: GQuery.sum(thisYear, indexes.companies),
+        count: GQuery.sum_empresa(thisYear, indexes.companies),
         amount: Client.sumSoles(thisYear, indexes.companyAmount, indexes.currency, year)
       };
 

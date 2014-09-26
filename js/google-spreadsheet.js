@@ -57,7 +57,7 @@ var GQuery = {
     },
     transactions: function(callback){
       // null to get all years, companies could be refactored to allow just function
-      GQuery.transactions(null, function(response){
+      GQuery.transactions(year, function(response){
         var rows = response.table.rows;
 
         var _transactions = GQuery.toObjects(rows,
@@ -118,6 +118,20 @@ var GQuery = {
     for(var i = 0; i < rows.length; i++){
       var row = rows[i];
       out += parseInt(row.c[columnIndex].v);
+    }
+    return out;
+  },
+
+  sum_empresa: function(rows, columnIndex){
+    var out = 0;
+    var comp = {}
+    for(var i = 0; i < rows.length; i++){
+      var row = rows[i];
+      var key = row.c[1].v + row.c[2].v;
+      if (comp[key] === undefined) {
+      out += parseInt(row.c[columnIndex].v);
+      }
+      comp[key] = row.c[4].v;
     }
     return out;
   },

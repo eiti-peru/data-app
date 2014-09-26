@@ -4,7 +4,9 @@
 GQuery.named = {
 
   // Generic transactions to be processed by client
-  transactions: "select A,B,C,D,E,F,G,H,I,J,K,L,M" + "&sheet=transactions_transposed",
+  transactions: function(year){
+    return "select A,B,C,D,E,F,G,H,I,J,K,L,M where D = '" + year + "'&sheet=transactions_transposed";
+  },
 
   // ingresos level 1
 
@@ -45,7 +47,7 @@ GQuery.named = {
   third:  "select J, count(A) where J = 'yes' group by J pivot C" + "&sheet=empresas",
 
   //            year  currency   auth    comp
-  colDiff: "select D, M, sum(G), sum(H) where M !='' group by D, M " +
+  colDiff: "select D, M, sum(G), sum(H) group by D, M " +
     "label sum(G) 'Según Gobierno', sum(H) 'Según Empresas'" +
     "&sheet=transactions_transposed",
 
