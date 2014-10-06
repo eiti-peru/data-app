@@ -19,12 +19,12 @@ GQuery.named = {
     // receiving not empty string or number
     if((typeof year == 'string' && year[0]) || typeof year == 'number'){
       //          type   prod     gov     com     count   currency   name
-      return "select C, sum(G), sum(H), count(B)" +
-        "where D = '" + year.toString() + "' group by C order by C desc" + "&sheet=transactions_transposed";
+      return "select C, sum(G), sum(H), sum(E)" +
+        "where D = '" + year.toString() + "' and E != 0 group by C order by C desc" + "&sheet=transactions_transposed";
       // receiving callback or other cases
     } else {
       return "select C, sum(G), sum(H), count(B)       " +
-        " group by C" + "&sheet=transactions_transposed";
+        " where E != 0 group by C" + "&sheet=transactions_transposed";
     }
   },
 
@@ -36,7 +36,7 @@ GQuery.named = {
   // authorities for a given type and year
   authorities: function(type, year){
     return "select sum(G), sum(H), sum(I),    F, M " +
-      "where C = '" + type + "' and D = '" + year + "' " +
+      "where C = '" + type + "' and E != 0 and D = '" + year + "' " +
       "group by F, M order by sum(G) desc" + "&sheet=transactions_transposed";
   },
 

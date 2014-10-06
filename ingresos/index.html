@@ -219,13 +219,14 @@ title: 'Ingresos'
         return row.c[gov].v - row.c[comp].v;
       });
 
+      row = rows
       var totals = {
         government: Client.sumSoles(rows, gov, currency, year).round(2),
         companies: {
           paid: Client.sumSoles(rows, comp, currency, year).round(2),
           count: _.reduce(rows, function (memo, row) {
-            return row.c[count].v;
-          }, 0)
+            return memo + row.c[count].v;
+          }, 0) / 6
         },
         diff: Client.sumSoles(rows, diff, currency, year).round(2)
       };

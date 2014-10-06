@@ -116,6 +116,8 @@ GChart = {
       var j = columns[i];
       formatter.format(data, j);
     }
+    formatter.format(data, 0);
+    formatter.format(data, 1);
   }
 
 };
