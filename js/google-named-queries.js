@@ -5,7 +5,7 @@ GQuery.named = {
 
   // Generic transactions to be processed by client
   transactions: function(year){
-    return "select A,B,C,D,E,F,G,H,I,J,K,L,M where D = '" + year + "'&sheet=transactions_transposed";
+    return "select A,B,C,D,E,F,G,H,I,J,K,L,M&sheet=transactions_transposed";
   },
 
   // ingresos level 1
