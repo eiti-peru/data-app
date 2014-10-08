@@ -21,7 +21,7 @@ $(function (){
     var cacheKey = 'cssFor' + column + new Date().toDateString();
     cacheKey = cacheKey.replace(/\s/g, '_');
 
-    var q = "SELECT cartodb_id, the_geom,the_geom_webmercator, departamento, year, canon_minero_gobiernos_locales_del_departamento::integer as canon_minero_locales, to_char(canon_minero_gobiernos_regionales::integer,'999G999G999G990') as canon_minero_regional, to_char(canon_gasifero_universidades_nacionales::integer,'999G999G999G990') as canon_minero_uni, to_char(canon_gasifero_gobiernos_regionales::integer,'999G999G999G990') as canon_gasifero_regional, to_char(canon_gasifero_gobiernos_locales_del_departamento::integer,'999G999G999G990') as canon_gasiferas_locales, to_char(canon_y_sobrecanon_petrolero_universidades_nacionales::integer,'999G999G999G990') as canon_petrolero_uni, to_char(canon_y_sobrecanon_petrolero_institutos::integer,'999G999G999G990') as canon_petrolero_inst, to_char(canon_y_sobrecanon_petrolero_gobiernos_locales_del_departamento::integer,'999G999G999G990') as canon_petrolero_departamento, to_char(canon_y_sobrecanon_petrolero_gobiernos_regionales::integer,'999G999G999G990') as canon_petrolero_regional, to_char(regalias_mineras_universidades_naccionales::integer,'999G999G999G990') as canon_mineras_uni, to_char(regalias_mineras_gobiernos_regionales::integer,'999G999G999G990') as canon_mineras_regional, to_char(regalias_mineras_gobiernos_locales_del_departamenteo::integer,'999G999G999G990') as canon_mineras_locales, to_char(derechos_de_vigencia::integer,'999G999G999G990') as derechos, derechos_de_vigencia::integer as total FROM eiti_peru where year = '" + column + "'";
+    var q = "SELECT cartodb_id, the_geom, the_geom_webmercator, departamento, year, canon_minero_gobiernos_locales_del_departamento, canon_minero_gobiernos_regionales, canon_gasifero_universidades_nacionales, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_y_sobrecanon_petrolero_gobiernos_regionales,regalias_mineras_universidades_naccionales, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, derechos_de_vigencia, total::integer as total FROM eiti_peru where year = '" + column + "'";
     value = 'total'
     if(cache = JSON.parse(sessionStorage[cacheKey] || null))
       callback(cssFromRows(cache, value));
@@ -46,7 +46,6 @@ $(function (){
       var subCss = fillCss(column + ' <= ' + limit, color);
       return subCss;
     }).join('');
-
     return css;
   };
 
@@ -61,6 +60,10 @@ $(function (){
       $li.addClass('selected');
 
       setCss($li, layer);
+
+      layer.set({sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, departamento, year, canon_minero_gobiernos_locales_del_departamento, canon_minero_gobiernos_regionales, canon_gasifero_universidades_nacionales, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_y_sobrecanon_petrolero_gobiernos_regionales,regalias_mineras_universidades_naccionales, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, derechos_de_vigencia, derechos_de_vigencia::integer as total FROM eiti_peru where year = '" + $li.attr('data') + "'",
+      interactivity: 'departamento, year, canon_minero_gobiernos_locales_del_departamento, canon_minero_gobiernos_regionales, canon_gasifero_universidades_nacionales, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_y_sobrecanon_petrolero_gobiernos_regionales,regalias_mineras_universidades_naccionales, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, derechos_de_vigencia, total'
+    });
     });
   }
 
@@ -76,18 +79,28 @@ $(function (){
   mapbox = new L.TileLayer(mapboxUrl, {"attribution": "\u00a9 <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a> contributors"});
   map.addLayer(mapbox,true);
 
+  var columns = [
+    ['Title', 'canon_minero_gobiernos_locales_del_regionales'],
+    ['']
+  ];
+
   var showTooltip = function (data, point) {
     var $tooltip = $('#tooltip');
 
-    var total = parseInt(data.total.replace(/[^0-9]/g, ''));
-
-    if( total > 0 ) {
-      $tooltip.html(data.departamento + ": " + data.canon_gasifero_regional);
-      $tooltip.css({left: (point.x + 'px'), top: (point.y + 'px')})
-      $tooltip.show();
-    } else {
-      $tooltip.hide();
+    // var total = parseInt(data.total.replace(/[^0-9]/g, ''));
+    html = "<p>" + data.departamento + ": " + data.total;
+    for(var i = 0; i < columns.length; i++) {
+      if( data[columns[i][1]] > 0 ) {
+        html += "<br>" + column[i][0] + ": " + data[columns[i][1]];
+      }
     }
+      // "<br>title: " + data.canon_minero_gobiernos_locales_del_departamento + "<br>" + data.canon_minero_gobiernos_regionales + "<br>" + data.canon_gasifero_universidades_nacionales + "<br>" + data.canon_gasifero_gobiernos_regionales + "<br>" + "<br>" + data.canon_y_sobrecanon_petrolero_universidades_nacionales + "<br></p>"
+    html += "</p>"
+    $tooltip.html(html);
+    $tooltip.css({left: (point.x + 'px'), top: (point.y + 'px')})
+    $tooltip.show();
+
+      // $tooltip.hide();
   };
   var hideTooltip = function (data, point) {
     $('#tooltip').hide();
@@ -97,8 +110,9 @@ $(function (){
     user_name: 'crisscrossed',
     type: 'cartodb',
     sublayers: [{
-      sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, departamento, year, canon_minero_gobiernos_locales_del_departamento, canon_minero_gobiernos_regionales, canon_gasifero_universidades_nacionales, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_y_sobrecanon_petrolero_gobiernos_regionales,regalias_mineras_universidades_naccionales, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, derechos_de_vigencia, derechos_de_vigencia as total FROM eiti_peru where year = '2012'",
-      interactivity: 'year, departamento, total, canon_minero_gobiernos_locales_del_departamento, canon_minero_gobiernos_regionales, canon_gasifero_universidades_nacionales, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_y_sobrecanon_petrolero_gobiernos_regionales,regalias_mineras_universidades_naccionales, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, derechos_de_vigencia'
+      sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, departamento, year, canon_minero_gobiernos_locales_del_departamento, canon_minero_gobiernos_regionales, canon_gasifero_universidades_nacionales, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_y_sobrecanon_petrolero_gobiernos_regionales,regalias_mineras_universidades_naccionales, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, derechos_de_vigencia, derechos_de_vigencia::integer as total FROM eiti_peru where year = '2012'",
+      interactivity: 'departamento, year, canon_minero_gobiernos_locales_del_departamento, canon_minero_gobiernos_regionales, canon_gasifero_universidades_nacionales, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_y_sobrecanon_petrolero_gobiernos_regionales,regalias_mineras_universidades_naccionales, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, derechos_de_vigencia, total',
+      cartocss: '#eiti_peru{polygon-fill: #FF6600;polygon-opacity: 0.7;line-color: #FFF;line-width: 1;line-opacity: 1;}'
     }]
   })
   .addTo(map)
@@ -116,23 +130,7 @@ $(function (){
     });
     yearHandler(subLayer);
     setCss($('li.selected'), subLayer);
-
-    // layer.createSubLayer({
-    //   sql: "SELECT * FROM eiti_peru limit 200",
-    //   cartocss: '#table_name {polygon-fill: #F0F0F0;}'
-    // });
-
-    // change the query for the first layer
-    // layer.getSubLayer(0).setSQL("SELECT * FROM table_name limit 10");
   })
-
-
-  // .done(function(vis, layers) {
-  //   // layer 0 is the base layer, layer 1 is cartodb layer
-  //   var subLayer = layers[1].getSubLayer(0);
-  //   yearHandler(subLayer);
-  //   setCss($('li.selected'), subLayer);
-  // })
   .error(function(err) {
     console.log(err);
   });

@@ -39,10 +39,7 @@
   position: absolute;
   display: none;
     z-index:1000;
-}
-
-#_tooltip {
-  background-color: #DDE7F0;
+  background-color: #ffffff;
   padding: 4px 6px;
   border: 1px solid #A3B3C7;
 }

@@ -11,7 +11,6 @@
   <link rel=stylesheet type=text/css href="{{ site.url }}/css/custom.min.css">
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script src="{{ site.url }}/js/jquery-1.8.3.min.js"></script>
-  <script type="text/javascript" src="{{ site.url }}/js/purl.js"></script>
   <script type="text/javascript" src="{{ site.url }}/js/rates.js"></script>
   <script type="text/javascript" src="{{ site.url }}/js/number.js"></script>
   <script type="text/javascript" src="{{ site.url }}/js/google-chart.js"></script>
@@ -22,12 +21,6 @@
 </head>
 <body class="wrapper {{ locale }}">
   <div class="main">
-	 <!-- <div class="language">
-    <ul class="nav-bubble">
-      <li class="{% if locale == "de" %} active {% endif %}"><a href="{{ site.url }}{{ page.url | remove: "/en" }}">de</a></li>
-      <li class="{% if locale == "en" %} active {% endif %}"><a href="{{ site.url }}/en{{ page.url | remove: "/en" }}">en</a></li>
-    </ul>
-    </div>-->
   	<div class="row">
 			<div class="large-6 columns">
 				<div id="site-title"><a href="{{ site.url }}{% if locale == "en" %}/en{% else %}/{% endif %}">EITI Peru</a></div>
