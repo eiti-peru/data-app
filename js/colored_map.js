@@ -61,7 +61,7 @@ $(function (){
 
       setCss($li, layer);
 
-      layer.set({sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, departamento, year, canon_minero_gobiernos_locales_del_departamento, canon_minero_gobiernos_regionales, canon_gasifero_universidades_nacionales, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_y_sobrecanon_petrolero_gobiernos_regionales,regalias_mineras_universidades_naccionales, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, derechos_de_vigencia, derechos_de_vigencia::integer as total FROM eiti_peru where year = '" + $li.attr('data') + "'",
+      layer.set({sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, departamento, year, canon_minero_gobiernos_regionales, canon_minero_gobiernos_locales_del_departamento, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, regalias_mineras_universidades_naccionales, canon_y_sobrecanon_petrolero_gobiernos_regionales, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_gasifero_universidades_nacionales, derechos_de_vigencia, derechos_de_vigencia::integer as total FROM eiti_peru where year = '" + $li.attr('data') + "'",
       interactivity: 'departamento, year, canon_minero_gobiernos_locales_del_departamento, canon_minero_gobiernos_regionales, canon_gasifero_universidades_nacionales, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_y_sobrecanon_petrolero_gobiernos_regionales,regalias_mineras_universidades_naccionales, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, derechos_de_vigencia, total'
     });
     });
@@ -80,27 +80,35 @@ $(function (){
   map.addLayer(mapbox,true);
 
   var columns = [
-    ['Title', 'canon_minero_gobiernos_locales_del_regionales'],
-    ['']
+    ['CANON MINERO recibido Gobierno Regional','canon_minero_gobiernos_regionales'],
+    ['CANON MINERO recibido Gobiernos Locales','canon_minero_gobiernos_locales_del_departamento'],
+    ['REGALIA MINERA recibido Gobierno Regional','regalias_mineras_gobiernos_regionales'],
+    ['REGALIA MINERA recibido Gobiernos Locales','regalias_mineras_gobiernos_locales_del_departamenteo'],
+    ['REGALIA MINERA recibido Universidades Nacionales','regalias_mineras_universidades_naccionales'],
+    ['CANON Y SOBRECANON PETROLERO recibido Gobierno Regional','canon_y_sobrecanon_petrolero_gobiernos_regionales'],
+    ['CANON Y SOBRECANON PETROLERO recibido Gobiernos Locales','canon_y_sobrecanon_petrolero_gobiernos_locales_del_departamento'],
+    ['CANON Y SOBRECANON PETROLERO recibido Universidades','canon_y_sobrecanon_petrolero_universidades_nacionales'],
+    ['CANON Y SOBRECANON PETROLERO recibido Institutos','canon_y_sobrecanon_petrolero_institutos'],
+    ['CANON GASIFERO recibido Gobierno Regional','canon_gasifero_gobiernos_regionales'],
+    ['CANON GASIFERO recibido Gobiernos Locales','canon_gasifero_gobiernos_locales_del_departamento'],
+    ['CANON GASIFERO recibido Universidades','canon_gasifero_universidades_nacionales'],
+    ['DERECHO DE VIGENCIA recibido distritos en área de influencia','derechos_de_vigencia']
   ];
 
   var showTooltip = function (data, point) {
     var $tooltip = $('#tooltip');
 
-    // var total = parseInt(data.total.replace(/[^0-9]/g, ''));
-    html = "<p>" + data.departamento + ": " + data.total;
+    html = "<p><h2>" + data.departamento + "</h2> (" + data.year + ")";
     for(var i = 0; i < columns.length; i++) {
       if( data[columns[i][1]] > 0 ) {
-        html += "<br>" + column[i][0] + ": " + data[columns[i][1]];
+        html += "<br>" + columns[i][0] + ": " + data[columns[i][1]];
       }
     }
-      // "<br>title: " + data.canon_minero_gobiernos_locales_del_departamento + "<br>" + data.canon_minero_gobiernos_regionales + "<br>" + data.canon_gasifero_universidades_nacionales + "<br>" + data.canon_gasifero_gobiernos_regionales + "<br>" + "<br>" + data.canon_y_sobrecanon_petrolero_universidades_nacionales + "<br></p>"
     html += "</p>"
     $tooltip.html(html);
     $tooltip.css({left: (point.x + 'px'), top: (point.y + 'px')})
     $tooltip.show();
 
-      // $tooltip.hide();
   };
   var hideTooltip = function (data, point) {
     $('#tooltip').hide();
@@ -110,7 +118,7 @@ $(function (){
     user_name: 'crisscrossed',
     type: 'cartodb',
     sublayers: [{
-      sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, departamento, year, canon_minero_gobiernos_locales_del_departamento, canon_minero_gobiernos_regionales, canon_gasifero_universidades_nacionales, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_y_sobrecanon_petrolero_gobiernos_regionales,regalias_mineras_universidades_naccionales, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, derechos_de_vigencia, derechos_de_vigencia::integer as total FROM eiti_peru where year = '2012'",
+      sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, departamento, year, canon_minero_gobiernos_regionales, canon_minero_gobiernos_locales_del_departamento, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, regalias_mineras_universidades_naccionales, canon_y_sobrecanon_petrolero_gobiernos_regionales, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_gasifero_universidades_nacionales, derechos_de_vigencia, derechos_de_vigencia::integer as total FROM eiti_peru where year = '2012'",
       interactivity: 'departamento, year, canon_minero_gobiernos_locales_del_departamento, canon_minero_gobiernos_regionales, canon_gasifero_universidades_nacionales, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_y_sobrecanon_petrolero_gobiernos_regionales,regalias_mineras_universidades_naccionales, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, derechos_de_vigencia, total',
       cartocss: '#eiti_peru{polygon-fill: #FF6600;polygon-opacity: 0.7;line-color: #FFF;line-width: 1;line-opacity: 1;}'
     }]

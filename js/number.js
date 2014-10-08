@@ -53,4 +53,4 @@ var extendCore = function(){
 
 };
 
-if(!location.pathname.match(/distribucion/)) extendCore();
+if(!location.pathname.match(/distrbucion/)) extendCore();
