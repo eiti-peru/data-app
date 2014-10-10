@@ -5,22 +5,20 @@ title: 'Distribucion'
 ---
 
 <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
-
 <!--[if lte IE 8]>
   <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" />
 <![endif]-->
 <link rel="stylesheet" href="{{site.url}}/css/distribucion.min.css" />
 
 
-<div class='row spacetop'>
+<div class='row spacetop spacebottom'>
   <div class='large-12 columns'>
     {% include editables/distribucion/distribucion.html %}
   </div>
 </div>
-<div class='row'>
+<div class='row spacetop'>
   <div class='large-12 columns'>
     <div id="map"></div>
-    <div id="tooltip"></div>
     <div id="layer_selector" class="cartodb-infobox">
       <ul>
         <li data="2012" class="selected">2012</li>
@@ -44,5 +42,6 @@ title: 'Distribucion'
     </ul>
   </div>
 </div>
+
 <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
 <script type="text/javascript" src="{{ site.url }}/js/colored_map.js"></script>
