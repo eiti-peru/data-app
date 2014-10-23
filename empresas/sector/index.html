@@ -43,7 +43,7 @@ title: 'Empresas'
       </div>
       <div class='highlight-value-box' id='complete2'>
         <div class='header-box'></div>
-        <div class='subheader-box'>Monto reportado por empresas</div>
+        <div class='subheader-box'>Reportado por empresas</div>
       </div>
       <div class='highlight-value-box' id='complete3'>
         <div class='header-box'></div>
@@ -112,7 +112,7 @@ title: 'Empresas'
   Projects = {
     "projectsData": [],
     "treeData": [],
-    "init": function(year, rows, indexes, totals) {
+    "init": function(year, type, rows, indexes, totals) {
       var _this = this;
 
       this.projectsData = _.map(rows, function(n) {return _this.dataToTable(n, indexes, totals)});
@@ -120,7 +120,7 @@ title: 'Empresas'
         return -row.betrag;
       })
 
-      _.each(rows, function(r) { return _this.projectToTreemapJson(r, indexes, year); });
+      _.each(rows, function(r) { return _this.projectToTreemapJson(r, indexes, year, type); });
       _this.drawTreemap();
       _this.drawTable();
 
@@ -176,7 +176,7 @@ title: 'Empresas'
         crs_en:   companyName
       };
     },
-    "projectToTreemapJson": function(row, indexes, year) {
+    "projectToTreemapJson": function(row, indexes, year, type) {
       var company              = row.c[indexes.companyName].v;
       var inUsd                = row.c[indexes.currency].v == 'USD';
       var paidAccordingCompany = row.c[indexes.companyAmount].v;
@@ -195,7 +195,7 @@ title: 'Empresas'
           "$color": company == "Compañías Agregadas" ? "#e78d33" : "#42abd8",
           "value": paidAccordingCompany,
           "printable_value": paidAccordingCompany,
-          "link": "",
+          "link": "/empresas/sector/index.html?y=" + year + "&b=" + type,
           "show_title": true
         },
         "children": [],
@@ -258,7 +258,7 @@ title: 'Empresas'
         growth: growth
       };
 
-      Projects.init(year, thisYear, indexes, totals);
+      Projects.init(year, type, thisYear, indexes, totals);
       AggStats.init(totals);
     });
 
