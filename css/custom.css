@@ -129,7 +129,6 @@ text-align: center;
 margin: auto;
 }
 
-.highlight-value-box#difference{ height: 88px;}
 .highlight-value-box {
 	font-size: 1.4em;
 	display: block;
@@ -260,7 +259,7 @@ ul.years li a:hover {
 text-align: center;
 font-size: 12px;
 color: #999999;
-margin-bottom: 20px;
+margin-bottom: 40px;
 }
 
 .year-toggle .active {
