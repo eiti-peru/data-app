@@ -51,7 +51,7 @@ title: 'Ingresos'
       </div>
       <div class='highlight-value-box' id='difference'>
         <div class='header-box'></div>
-        <div class='subheader-box'>Diferencia año anterior</div>
+        <div class='subheader-box'>Diferencia</div>
       </div>
     </div>
   </div>
@@ -82,7 +82,7 @@ title: 'Ingresos'
   <div class='large-12 columns right'>
     <ul class='years download'>
       <li class='year-toggle'>
-        <a class='json' href='https://docs.google.com/spreadsheet/ccc?key=0AtMts_R3W2qxdG40SUxNcHRmYW01WWxkcnl3WVRVc1E&usp=drive_web#gid=17' target='_blank'>DATA</a>
+        <a class='json' href='https://docs.google.com/spreadsheet/ccc?key=0AtMts_R3W2qxdG40SUxNcHRmYW01WWxkcnl3WVRVc1E&usp=sharing' target='_blank'>DATA</a>
       </li>
     </ul>
   </div>
@@ -272,11 +272,6 @@ title: 'Ingresos'
       GChart.draw(id, table, chart, opts);
     });
 
-    // Temporal
-    GSpreadsheet.sheetByTitle('transactions_transposed', function(id){
-      $('.json').attr('href', GSpreadsheet.sheetUrl(id) + "?alt=json");
-    });
-    $('.csv' ).attr('href', GSpreadsheet.csvUrl('transactions_transposed'));
   });
 
 </script>

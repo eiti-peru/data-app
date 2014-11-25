@@ -29,7 +29,7 @@ $(function (){
       });
   };
 
-  map = new L.Map('map').setView(new L.LatLng(-10, -75),6);
+  map = new L.Map('map').setView(new L.LatLng(-10, -75),5);
   var mapboxUrl = 'http://{s}.tiles.mapbox.com/v3/okf.map-najwtvl1/{z}/{x}/{y}.png',
   mapbox = new L.TileLayer(mapboxUrl, {"attribution": "\u00a9 <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a> contributors"});
   map.addLayer(mapbox, true);

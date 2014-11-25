@@ -61,14 +61,14 @@ title: 'Ingresos'
   <div class='large-12 columns'>
     <table id='regionData'>
       <tr>
-        <th class='title'></th>
+        <th class='title'>Concepto</th>
         <th class='vergleich'> Ingresos (S/.) </th>
         <th class='anteil'>Parte %</th>
       </tr>
     </table>
     <ul class='years download'>
       <li class='year-toggle'>
-        <a class='json' href='https://docs.google.com/spreadsheet/ccc?key=0AtMts_R3W2qxdG40SUxNcHRmYW01WWxkcnl3WVRVc1E&usp=drive_web#gid=17' target='_blank'>DATA</a>
+        <a class='json' href='https://docs.google.com/spreadsheet/ccc?key=0AtMts_R3W2qxdG40SUxNcHRmYW01WWxkcnl3WVRVc1E&usp=sharing' target='_blank'>DATA</a>
       </li>
     </ul>
   </div>
@@ -117,7 +117,6 @@ title: 'Ingresos'
         _this.drawTable();
 
         $('h1').text(crs);
-        $('th.title').text(crs);
       }else{
         $('#mainvis').html('Informacion no disponible ' + year + '.').
         css('color', 'black');
@@ -239,7 +238,7 @@ title: 'Ingresos'
         var growth = production.previous ?
           ((production.now - production.previous) *
           100 / production.previous).round(2).format() + "%" :
-          "No hay datos del año anterior";
+          "No hay datos";
 
         var totals = {
           production: production,
@@ -259,10 +258,6 @@ title: 'Ingresos'
     $('.y2009').attr('href', 'index.html?y=2009&b=' + crs);
     $('.y2008').attr('href', 'index.html?y=2008&b=' + crs);
 
-    GSpreadsheet.sheetByTitle('transactions_transposed', function(id){
-      $('.json').attr('href', GSpreadsheet.sheetUrl(id) + "?alt=json");
-    })
-    $('.csv' ).attr('href', GSpreadsheet.csvUrl('transactions_transposed'));
   });
 </script>
 {% include treemap.html %}

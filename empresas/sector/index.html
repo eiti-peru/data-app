@@ -52,7 +52,7 @@ title: 'Empresas'
     </div>
     <ul class='years download'>
       <li class='year-toggle'>
-        <a class='json' href='https://docs.google.com/spreadsheet/ccc?key=0AtMts_R3W2qxdG40SUxNcHRmYW01WWxkcnl3WVRVc1E&usp=drive_web#gid=17' target='_blank'>DATA</a>
+        <a class='json' href='https://docs.google.com/spreadsheet/ccc?key=0AtMts_R3W2qxdG40SUxNcHRmYW01WWxkcnl3WVRVc1E&usp=sharing' target='_blank'>DATA</a>
       </li>
     </ul>
   </div>
@@ -61,8 +61,8 @@ title: 'Empresas'
   <div class='large-9 columns'>
     <table id='empresas'>
       <tr>
-        <th class='sector'>Sector</th>
-        <th class='produccion'>Ingresos (S/.)</th>
+        <th class='sector'>Empresa</th>
+        <th class='produccion'>Pagos (S/.)</th>
         <th class='parte'>Parte (%)</th>
       </tr>
     </table>
@@ -102,7 +102,7 @@ title: 'Empresas'
       $('#complete1 .header-box ')
       .text(totals.companies.count);
       $('#complete3 .header-box')
-      .text(totals.growth != Infinity ? totals.growth + "%" : "Informacion no disponible.");
+      .text(totals.growth != Infinity ? totals.growth + "%" : "No hay datos");
     }
   }
 
@@ -260,9 +260,7 @@ title: 'Empresas'
     });
 
     GSpreadsheet.sheetByTitle('transactions_transposed', function(id){
-      $('.json').attr('href', GSpreadsheet.sheetUrl(id) + "?alt=json");
     });
-    $('.csv' ).attr('href', GSpreadsheet.csvUrl('transactions_transposed'));
 
     // Year links
     $('.y2012').attr('href', 'index.html?y=2012&b=' + type);
