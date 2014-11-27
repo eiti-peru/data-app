@@ -94,7 +94,7 @@ title: 'Ingresos'
         var _this = this;
 
         $('#companies-count .header-box ')
-          .text(totals.companies.count);
+          .text(totals.companies.count.round(0));
         $('#total-entities .header-box ')
           .text(rates.sol + totals.government.round(0).format());
         $('#total-companies .header-box ')
@@ -162,6 +162,7 @@ title: 'Ingresos'
       var type          = row.c[0].v;
       var government   = row.c[1].v;
       var count         = row.c[3].v / 6;
+      count = count.round(0)
       var _row = _.find(Projects.projectsData,
           function(_row){return _row.crs == type;});
 
