@@ -225,7 +225,7 @@ title: 'Ingresos'
     GQuery.authorities(crs, year, function(thisYear){
       GQuery.authorities(crs, _previousYear, function(previousYear){
         // Column names, TODO extract and organize
-        var gov = 0, comp = 1, diff = 2, type = 3, curr = 4;
+        var gov = 0, comp = 1, diff = 2, type = 3, curr = 4, count = 5;
 
         thisYear     = thisYear.table.rows;
         previousYear = previousYear.table.rows;
@@ -242,8 +242,9 @@ title: 'Ingresos'
 
         var totals = {
           production: production,
-          companies: _(_(thisYear).groupBy(function(row){ return row.c[type].v;})).
-            keys().length,
+          companies: _.reduce(thisYear, function (memo, row) {
+            return memo + row.c[count].v;
+          }, 0) / 6,
           growth: growth
         };
 

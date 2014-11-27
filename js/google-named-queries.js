@@ -35,7 +35,7 @@ GQuery.named = {
   // ingresos level 2
   // authorities for a given type and year
   authorities: function(type, year){
-    return "select sum(G), sum(H), sum(I),    F, M " +
+    return "select sum(G), sum(H), sum(I),  F, M, sum(E) " +
       "where C = '" + type + "' and E != 0 and D = '" + year + "' " +
       "group by F, M order by sum(G) desc" + "&sheet=transactions_transposed";
   },
