@@ -161,7 +161,7 @@ title: 'Ingresos'
     "dataToTable": function(row, total, year) {
       var type          = row.c[0].v;
       var government   = row.c[1].v;
-      var count         = row.c[3].v;
+      var count         = row.c[3].v / 6;
       var _row = _.find(Projects.projectsData,
           function(_row){return _row.crs == type;});
 
