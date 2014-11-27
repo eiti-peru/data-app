@@ -233,7 +233,7 @@ title: 'Ingresos'
     });
 
     GChart.dataTable('productionByYearBySector', function(table){
-      // Columns
+          // Columns
       var year       = 0;
       var production = 1;
       var total      = table.getNumberOfColumns();
@@ -247,8 +247,7 @@ title: 'Ingresos'
         chartArea: {top: 20, left: 120, width: 600},
         lineWidth: 5,
         pointSize: 8,
-        legend: { position: 'bottom' },
-        vAxis: {format: '###,###,###,###'}
+        legend: { position: 'bottom' }
       };
 
       // Currency conversion

@@ -75,7 +75,7 @@ $(function (){
     sublayers: [{
       sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, departamento, year, canon_minero_gobiernos_regionales, canon_minero_gobiernos_locales_del_departamento, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, regalias_mineras_universidades_naccionales, canon_y_sobrecanon_petrolero_gobiernos_regionales, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_gasifero_universidades_nacionales, derechos_de_vigencia, total::bigint as total FROM eiti_peru where year = '2012'",
       interactivity: 'departamento, year, canon_minero_gobiernos_regionales, canon_minero_gobiernos_locales_del_departamento, regalias_mineras_gobiernos_regionales, regalias_mineras_gobiernos_locales_del_departamenteo, regalias_mineras_universidades_naccionales, canon_y_sobrecanon_petrolero_gobiernos_regionales, canon_y_sobrecanon_petrolero_universidades_nacionales, canon_y_sobrecanon_petrolero_institutos, canon_gasifero_gobiernos_regionales, canon_gasifero_gobiernos_locales_del_departamento, canon_gasifero_universidades_nacionales, derechos_de_vigencia',
-      cartocss: '#eiti_peru{polygon-fill: #FFFFB2;polygon-opacity: 0.8;line-color: #FFF;line-width: 1;line-opacity: 1;}#eiti_peru [ total <= 3000000000] {polygon-fill: #B10026;}#eiti_peru [ total <= 1000000000] {polygon-fill: #E31A1C;}#eiti_peru [ total <= 700000000] {polygon-fill: #FC4E2A;}#eiti_peru [ total <= 500000000] {polygon-fill: #FD8D3C;}#eiti_peru [ total <= 300000000] {polygon-fill: #FEB24C;}#eiti_peru [ total <= 10000000] {polygon-fill: #FED976;}#eiti_peru [ total <= 5000000] {polygon-fill: #FFFFB2;}'
+      cartocss: '#eiti_peru{polygon-fill: #FFFFB2;polygon-opacity: 0.8;line-color: #FFF;line-width: 1;line-opacity: 1;}#eiti_peru [ total <= 3000000000] {polygon-fill: #B10026;}#eiti_peru [ total <= 1000000000] {polygon-fill: #E31A1C;}#eiti_peru [ total <= 700000000] {polygon-fill: #FC4E2A;}#eiti_peru [ total <= 500000000] {polygon-fill: #FD8D3C;}#eiti_peru [ total <= 300000000] {polygon-fill: #FEB24C;}#eiti_peru [ total <= 10000000] {polygon-fill: #FED976;}#eiti_peru [ total <= 5000000] {polygon-fill: #FFFFB2;}#eiti_peru [ total < 1] {polygon-fill: #999999;}'
     }]
   }).addTo(map)
     .done(function(layer) {
@@ -85,7 +85,6 @@ $(function (){
     subLayer.on('featureOver', function(e, latlng, pos, data, subLayerIndex) {
       document.body.style.cursor = 'pointer';
       showTooltip(data, pos);
-      console.log('hello')
     });
     subLayer.on('featureOut', function () {
       document.body.style.cursor = 'default';

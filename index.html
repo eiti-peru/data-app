@@ -93,12 +93,6 @@ $(document).ready(function() {
     GChart.charts.pie(id, aggregations, width, height);
   });
 
-  GSpreadsheet.sheetByTitle('empresas', function(id){
-    $('.json-empresas').attr('href', GSpreadsheet.sheetUrl(id) + "?alt=json");
-  });
-
-  $('.csv-empresas' ).attr('href', GSpreadsheet.csvUrl('empresas'));
-
 });/*]]>*/</script>
 
 
