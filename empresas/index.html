@@ -217,22 +217,16 @@ title: 'Empresas'
         companies:     Client.index(response, 'companies')
       };
 
-      var production = {
-        now:      GQuery.sum(thisYear, indexes.companyPaid).toSol(year),
-        previous: !previousYear ? 0 : GQuery.
-          sum(previousYear, indexes.companyPaid).toSol(year),
-      };
-
-      var growth = ((production.now - production.previous) *
-      100 / production.previous).round(2);
-
       var companies = {
         count: GQuery.sum_empresa(thisYear, indexes.companies),
-        amount: Client.sumSoles(thisYear, indexes.companyAmount, indexes.currency, year)
+        amount: Client.sumSoles(thisYear, indexes.companyAmount, indexes.currency, year),
+        amount_previous: Client.sumSoles(previousYear, indexes.companyAmount, indexes.currency, year)
       };
 
+      var growth = ((companies.amount - companies.amount_previous) *
+      100 / companies.amount_previous).round(2);
+
       var totals   = {
-        production: production,
         companies:  companies,
         growth: growth
       };
