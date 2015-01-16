@@ -56,7 +56,7 @@ GQuery.named = {
 
   // Pie chart
   companiesByAggregation:
-    "select E, count(A) where E = 'Agregado' or E = 'Desagregado' group by E" +
+    "select E, count(A) where J = 'yes' group by E" +
     "&sheet=empresas",
 
   // Distribution page
