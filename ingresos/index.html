@@ -118,7 +118,7 @@ title: 'Ingresos'
         _.each(rows, function(n){ _this.dataToTable(n, totals.government, year, rows)});
         _.each(rows, function(n){ _this.projectToTreemapJson(n, year); });
         _this.drawTreemap();
-        //_this.drawTable();
+        _this.drawTable();
               
       } else {
         $('#mainvis').html('Informacion no disponible ' + year + '.').
@@ -155,6 +155,9 @@ title: 'Ingresos'
         p.betrag = p.betrag.round(0).format();
         return p;
       });
+
+     console.log('ps' +ps);
+     
 
       for(var i = 0; i < ps.length; i++){
         var project = ps[i];
