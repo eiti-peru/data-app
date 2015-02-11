@@ -117,7 +117,7 @@ title: 'Ingresos'
       if(rows.length > 0){
         _.each(rows, function(n){ _this.dataToTable(n, totals.government, year, rows)});
         _.each(rows, function(n){ _this.projectToTreemapJson(n, year); });
-        //_this.drawTreemap();
+        _this.drawTreemap();
         //_this.drawTable();
               
       } else {
