@@ -103,6 +103,8 @@ title: 'Ingresos'
           toString() + "%";
         $('#difference .header-box')
           .text(percentage);
+          
+          console.log('valor : '+totals.companies.count.round(0));
       }
   }
 
@@ -117,11 +119,11 @@ title: 'Ingresos'
         _.each(rows, function(n){ _this.projectToTreemapJson(n, year); });
         _this.drawTreemap();
         _this.drawTable();
-              console.log('se ejecuto');
+              
       } else {
         $('#mainvis').html('Informacion no disponible ' + year + '.').
         css('color', 'black');
-              console.log('informacion no disponible');
+              
       }
       
       
@@ -236,10 +238,7 @@ title: 'Ingresos'
         diff: Client.sumSoles(rows, diff, currency, year).round(2)
       };
 
-      console.log('anio' + year);
-      console.log('filas' + rows);
-      console.log('total' + totals);
-      
+
       Projects.init(year, rows, totals);
       AggStats.init(year, rows, totals);
     });
