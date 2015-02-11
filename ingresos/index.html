@@ -206,8 +206,6 @@ title: 'Ingresos'
   $(document).ready(function() {
     var year = $.url().param("y") || {{ site.year }};
     
-    console.log('prueba' + year);
-      
     
     
     CssClass = '.y' + year;
@@ -234,6 +232,10 @@ title: 'Ingresos'
         diff: Client.sumSoles(rows, diff, currency, year).round(2)
       };
 
+      console.log('anio' + year);
+      console.log('filas' + rows);
+      console.log('total' + totals);
+      
       Projects.init(year, rows, totals);
       AggStats.init(year, rows, totals);
     });
