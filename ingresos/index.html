@@ -117,10 +117,14 @@ title: 'Ingresos'
         _.each(rows, function(n){ _this.projectToTreemapJson(n, year); });
         _this.drawTreemap();
         _this.drawTable();
+              console.log('se ejecuto');
       } else {
         $('#mainvis').html('Informacion no disponible ' + year + '.').
         css('color', 'black');
+              console.log('informacion no disponible');
       }
+      
+      
     },
     "drawTreemap": function () {
       var data = _.map(Projects.treeData, function(node){
