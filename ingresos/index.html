@@ -274,19 +274,13 @@ title: 'Ingresos'
         return { 'column': col, 'aggregation': _sum, 'type': 'number' };
       }
       
-      console.log('variable sum: '+sum);
-      
       var groups = _(total - 1).times(function(col){ return sum(col + 1); })
-      
-      console.log('variable groups: '+groups);
-      
       table = google.visualization.data.group(table, [0], groups);
       
-      console.log('table: '+table);
       // Thousand separators
       //GChart.format(table, [1,2,3]);
       GChart.draw(id, table, chart, opts);
-      console.log('draw');
+      
     });
 
   });
