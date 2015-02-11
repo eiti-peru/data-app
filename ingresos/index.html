@@ -281,8 +281,10 @@ title: 'Ingresos'
       console.log('variable groups: '+groups);
       
       table = google.visualization.data.group(table, [0], groups);
+      
+      console.log('table: '+table);
       // Thousand separators
-      GChart.format(table, [1,2,3]);
+      //GChart.format(table, [1,2,3]);
       GChart.draw(id, table, chart, opts);
       console.log('draw');
     });
