@@ -266,7 +266,7 @@ title: 'Ingresos'
             row[col] = row[col]//.toSol(row[year]).round(2);
         }
         return row;
-         console.log('xxxxx'+row);
+        console.log('row'+row);
       });
 
       // Group by year
@@ -274,6 +274,7 @@ title: 'Ingresos'
         var _sum = google.visualization.data.sum;
         return { 'column': col, 'aggregation': _sum, 'type': 'number' };
       }
+      console.log(sum);
       var groups = _(total - 1).times(function(col){ return sum(col + 1); })
       table = google.visualization.data.group(table, [0], groups);
       // Thousand separators
