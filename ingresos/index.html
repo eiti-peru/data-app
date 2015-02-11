@@ -205,6 +205,11 @@ title: 'Ingresos'
   }
   $(document).ready(function() {
     var year = $.url().param("y") || {{ site.year }};
+    
+    console.log('prueba' + year);
+      
+    
+    
     CssClass = '.y' + year;
     $(CssClass).attr('class', 'active');
     $('span.year').text(year);
