@@ -104,7 +104,7 @@ title: 'Ingresos'
         $('#difference .header-box')
           .text(percentage);
           
-          console.log('valor : '+totals.companies.count.round(0));
+         
       }
   }
 
@@ -117,8 +117,8 @@ title: 'Ingresos'
       if(rows.length > 0){
         _.each(rows, function(n){ _this.dataToTable(n, totals.government, year, rows)});
         _.each(rows, function(n){ _this.projectToTreemapJson(n, year); });
-        _this.drawTreemap();
-        _this.drawTable();
+        //_this.drawTreemap();
+        //_this.drawTable();
               
       } else {
         $('#mainvis').html('Informacion no disponible ' + year + '.').
