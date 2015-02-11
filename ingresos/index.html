@@ -246,7 +246,7 @@ title: 'Ingresos'
       var year       = 0;
       var production = 1;
       var total      = table.getNumberOfColumns();
-      console.log('xxxxx'+total);
+     
       var id    = 'income-vs-year-bar-chart';
       var chart = 'ColumnChart';
       var opts  = {
@@ -266,6 +266,7 @@ title: 'Ingresos'
             row[col] = row[col]//.toSol(row[year]).round(2);
         }
         return row;
+         console.log('xxxxx'+row);
       });
 
       // Group by year
@@ -278,6 +279,7 @@ title: 'Ingresos'
       // Thousand separators
       GChart.format(table, [1,2,3]);
       GChart.draw(id, table, chart, opts);
+      console.log('draw');
     });
 
   });
