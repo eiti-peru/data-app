@@ -156,10 +156,7 @@ title: 'Ingresos'
         return p;
       });
 
-     console.log('ps' +ps.length);
-     
-
-      for(var i = 0; i < ps.length; i++){
+     for(var i = 0; i < ps.length; i++){
         var project = ps[i];
         var row = ich.ingresoRow(project);
         if(project.betrag != '0') {
@@ -215,8 +212,6 @@ title: 'Ingresos'
   $(document).ready(function() {
     var year = $.url().param("y") || {{ site.year }};
     
-    
-    
     CssClass = '.y' + year;
     $(CssClass).attr('class', 'active');
     $('span.year').text(year);
@@ -251,7 +246,7 @@ title: 'Ingresos'
       var year       = 0;
       var production = 1;
       var total      = table.getNumberOfColumns();
-
+      console.log('xxxxx'+total);
       var id    = 'income-vs-year-bar-chart';
       var chart = 'ColumnChart';
       var opts  = {
