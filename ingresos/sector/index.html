@@ -12,6 +12,9 @@ title: 'Ingresos'
   <div class='large-6 medium-5 columns'>
     <ul class='years'>
       <li class='year-toggle'>
+        <a class='y2013' href='?y=2013'>2013</a>
+      </li>
+      <li class='year-toggle'>
         <a class='y2012' href='?y=2012'>2012</a>
       </li>
       <li class='year-toggle'>
@@ -253,6 +256,7 @@ title: 'Ingresos'
 
       });
     });
+    $('.y2013').attr('href', 'index.html?y=2013&b=' + crs);
     $('.y2012').attr('href', 'index.html?y=2012&b=' + crs);
     $('.y2011').attr('href', 'index.html?y=2011&b=' + crs);
     $('.y2010').attr('href', 'index.html?y=2010&b=' + crs);
